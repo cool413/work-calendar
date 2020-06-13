@@ -1,56 +1,39 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <v-app-bar app color="primary" dark style="display:"></v-app-bar>
     <v-content>
-      <HelloWorld />
+      <v-container fluid>
+        <div>
+          <v-tabs class="tabs" centered grow height="60px" v-model="activeTab">
+            <v-tab v-for="tab in tabs" :key="tab.id" :to="tab.route" exact>{{
+              tab.name
+            }}</v-tab>
+          </v-tabs>
+          <router-view></router-view>
+        </div>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
-  name: "App",
-
-  components: {
-    HelloWorld
-  },
+  //props: ["id"],
 
   data: () => ({
-    //
-  })
+    activeTab: `/addTask`,
+    tabs: [
+      { id: 1, name: "新增工作", route: "/addTask" },
+      { id: 2, name: "查詢工作", route: "/About" }
+    ]
+  }),
+  methods: {
+    resolvePath(obj) {
+      return this.$router.resolve(obj).href;
+    },
+    updateRoute(route) {
+      this.$router.push(route);
+    }
+  }
 };
 </script>

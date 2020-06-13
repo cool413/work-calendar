@@ -1,23 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import AddTask from "../components/add-task";
+import QueryTask from "../components/query-task";
 
 Vue.use(VueRouter);
 
 const routes = [
+  { path: "*", redirect: "/" },
   {
     path: "/",
-    name: "Home",
-    component: Home
+    alias: "/AddTask",
+    name: "AddTask",
+    component: AddTask
   },
   {
     path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    name: "about",
+    component: QueryTask
   }
 ];
 
